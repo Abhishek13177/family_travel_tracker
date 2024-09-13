@@ -8,8 +8,8 @@ const port = 3000;
 const db = new pg.Client({
   user: "postgres",
   host: "localhost",
-  database: "world",
-  password: "9897688539",
+  database: "database name",
+  password: "dataBase-password",
   port: 5432,
 });
 db.connect();
@@ -20,10 +20,6 @@ app.use(express.static("public"));
 let currentUserId = 1;
 
 let users ;
-// = [
-//   { id: 1, name: "Angela", color: "teal" },
-//   { id: 2, name: "Jack", color: "powderblue" },
-// ];
 
 async function checkVisisted() {
   const result = await db.query(
@@ -90,8 +86,6 @@ app.post("/user", async (req, res) => {
 });
 
 app.post("/new", async (req, res) => {
-  //Hint: The RETURNING keyword can return the data that was inserted.
-  //https://www.postgresql.org/docs/current/dml-returning.html
   const usr=req.body.name;
   const color=req.body.color;
   const usr_id=await db.query("insert into users (name,color) values($1,$2) returning *;",[usr,color]);
